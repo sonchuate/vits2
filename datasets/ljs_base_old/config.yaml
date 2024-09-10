@@ -6,7 +6,7 @@ train:
   learning_rate: 2.0e-4
   betas: [0.8, 0.99]
   eps: 1.0e-09
-  batch_size: 16 # TODO Try more
+  batch_size: 64 # TODO Try more
   fp16_run: true
   lr_decay: 0.999875
   segment_size: 8192
@@ -18,10 +18,14 @@ train:
   c_kl_audio: 0.05 # 0.05 Allow more audio variation. default: 1
 
 data:
-  training_files: datasets/ljs_base/filelists/train_new.txt
-  validation_files: datasets/ljs_base/filelists/val_new.txt
+  training_files: datasets/ljs_base/filelists/train.txt
+  validation_files: datasets/ljs_base/filelists/val.txt
   vocab_file: datasets/ljs_base/vocab.txt
   text_cleaners:
+    - phonemize_text
+    - add_spaces
+    - tokenize_text
+    - add_bos_eos
   cleaned_text: true
   language: en-us
   bits_per_sample: 16
